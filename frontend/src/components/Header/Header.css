@@ -93,6 +93,68 @@
     gap: 10px;
 }
 
+
+/* Carrinho */
+
+.header-cart-button {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 11px 15px;
+
+    border: 1px solid #d9cbc2;
+    border-radius: 999px;
+
+    background-color: transparent;
+    color: #29483a;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.header-cart-button:hover {
+    border-color: #29483a;
+
+    background-color: #f0e5dd;
+}
+
+.cart-icon {
+    font-size: 17px;
+}
+
+.cart-text {
+    font-size: 13px;
+}
+
+.cart-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 999px;
+
+    background-color: #8c4a54;
+    color: white;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* WhatsApp */
+
 .header-whatsapp-button {
     border: none;
 
@@ -104,11 +166,18 @@
     color: white;
 
     font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
 }
 
 .header-whatsapp-button:hover {
     background-color: #20392e;
 }
+
+
+/* Menu mobile */
 
 .mobile-menu-button {
     display: none;
@@ -117,7 +186,12 @@
     background: transparent;
 
     font-size: 24px;
+
+    cursor: pointer;
 }
+
+
+/* Tablet */
 
 @media (max-width: 960px) {
     .main-nav {
@@ -153,6 +227,9 @@
     }
 }
 
+
+/* Celular */
+
 @media (max-width: 600px) {
     .main-header {
         padding: 15px 18px;
@@ -160,5 +237,13 @@
 
     .brand strong {
         font-size: 18px;
+    }
+
+    .cart-text {
+        display: none;
+    }
+
+    .header-cart-button {
+        padding: 9px 11px;
     }
 }

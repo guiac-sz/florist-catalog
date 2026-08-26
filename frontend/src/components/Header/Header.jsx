@@ -2,7 +2,10 @@ import { useState } from "react";
 import { storeConfig } from "../../config/storeConfig";
 import "./Header.css";
 
-export default function Header() {
+export default function Header({
+    cartItemCount,
+    onOpenCart
+}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     function handleWhatsApp() {
@@ -27,12 +30,20 @@ export default function Header() {
             </div>
 
             <header className="main-header">
-                <a href="#inicio" className="brand" onClick={closeMenu}>
+                <a
+                    href="#inicio"
+                    className="brand"
+                    onClick={closeMenu}
+                >
                     <div className="brand-mark">❀</div>
                     <strong>{storeConfig.name}</strong>
                 </a>
 
-                <nav className={`main-nav ${isMenuOpen ? "open" : ""}`}>
+                <nav
+                    className={`main-nav ${
+                        isMenuOpen ? "open" : ""
+                    }`}
+                >
                     <a href="#inicio" onClick={closeMenu}>
                         Início
                     </a>
@@ -45,7 +56,10 @@ export default function Header() {
                         Sobre
                     </a>
 
-                    <a href="#localizacao" onClick={closeMenu}>
+                    <a
+                        href="#localizacao"
+                        onClick={closeMenu}
+                    >
                         Localização
                     </a>
 
@@ -56,7 +70,29 @@ export default function Header() {
 
                 <div className="header-actions">
                     <button
+                        className="header-cart-button"
+                        type="button"
+                        onClick={onOpenCart}
+                        aria-label="Abrir carrinho"
+                    >
+                        <span className="cart-icon">
+                            🛒
+                        </span>
+
+                        <span className="cart-text">
+                            Carrinho
+                        </span>
+
+                        {cartItemCount > 0 && (
+                            <span className="cart-badge">
+                                {cartItemCount}
+                            </span>
+                        )}
+                    </button>
+
+                    <button
                         className="header-whatsapp-button"
+                        type="button"
                         onClick={handleWhatsApp}
                     >
                         Pedir pelo WhatsApp
@@ -64,7 +100,10 @@ export default function Header() {
 
                     <button
                         className="mobile-menu-button"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        type="button"
+                        onClick={() =>
+                            setIsMenuOpen(!isMenuOpen)
+                        }
                         aria-label="Abrir menu"
                         aria-expanded={isMenuOpen}
                     >
