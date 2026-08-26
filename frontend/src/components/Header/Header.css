@@ -86,6 +86,13 @@
     color: #8c4a54;
 }
 
+.main-nav a.active {
+    background-color: #e7dbd3;
+    color: #29483a;
+
+    font-weight: 700;
+}
+
 .header-actions {
     display: flex;
     align-items: center;

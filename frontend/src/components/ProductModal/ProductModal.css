@@ -11,6 +11,8 @@
 
     background-color: rgba(31, 38, 34, 0.55);
     backdrop-filter: blur(4px);
+
+    animation: modal-overlay-in 0.2s ease;
 }
 
 .product-modal {
@@ -29,6 +31,9 @@
     background-color: #fffaf7;
 
     box-shadow: 0 25px 70px rgba(30, 25, 22, 0.2);
+
+    animation: modal-in 0.25s
+        cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .product-modal-close {
@@ -53,6 +58,12 @@
     font-size: 25px;
 
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.product-modal-close:hover {
+    background-color: #f0e5dd;
 }
 
 .product-modal-image {
@@ -163,6 +174,12 @@
     font-size: 19px;
 
     cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.quantity-control button:hover {
+    background-color: #f0e5dd;
 }
 
 .quantity-control span {
@@ -206,6 +223,28 @@
 
 .product-modal-add:hover {
     background-color: #20392e;
+}
+
+@keyframes modal-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-in {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @media (max-width: 720px) {

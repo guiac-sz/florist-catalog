@@ -6,6 +6,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 95px;
 }
 
 body {
@@ -21,4 +22,8 @@ button {
 img {
     max-width: 100%;
     display: block;
+}
+
+section[id] {
+    scroll-margin-top: 95px;
 }

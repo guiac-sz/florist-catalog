@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storeConfig } from "../../config/storeConfig";
 import "./Header.css";
 
@@ -7,6 +7,50 @@ export default function Header({
     onOpenCart
 }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState("inicio");
+
+    useEffect(() => {
+        const sectionIds = [
+            "inicio",
+            "catalogo",
+            "sobre",
+            "localizacao",
+            "contato"
+        ];
+
+        function handleScroll() {
+            const scrollPosition = window.scrollY + 180;
+
+            let currentSection = "inicio";
+
+            sectionIds.forEach((sectionId) => {
+                const section =
+                    document.getElementById(sectionId);
+
+                if (
+                    section &&
+                    scrollPosition >= section.offsetTop
+                ) {
+                    currentSection = sectionId;
+                }
+            });
+
+            setActiveSection(currentSection);
+        }
+
+        handleScroll();
+
+        window.addEventListener("scroll", handleScroll, {
+            passive: true
+        });
+
+        return () => {
+            window.removeEventListener(
+                "scroll",
+                handleScroll
+            );
+        };
+    }, []);
 
     function handleWhatsApp() {
         const message = encodeURIComponent(
@@ -23,10 +67,15 @@ export default function Header({
         setIsMenuOpen(false);
     }
 
+    function getLinkClass(section) {
+        return activeSection === section ? "active" : "";
+    }
+
     return (
         <>
             <div className="top-bar">
-                Entrega em Sorocaba • Pedidos pelo WhatsApp • Flores frescas todos os dias
+                Entrega em Sorocaba • Pedidos pelo WhatsApp •
+                Flores frescas todos os dias
             </div>
 
             <header className="main-header">
@@ -44,26 +93,45 @@ export default function Header({
                         isMenuOpen ? "open" : ""
                     }`}
                 >
-                    <a href="#inicio" onClick={closeMenu}>
+                    <a
+                        href="#inicio"
+                        className={getLinkClass("inicio")}
+                        onClick={closeMenu}
+                    >
                         Início
                     </a>
 
-                    <a href="#catalogo" onClick={closeMenu}>
+                    <a
+                        href="#catalogo"
+                        className={getLinkClass("catalogo")}
+                        onClick={closeMenu}
+                    >
                         Catálogo
                     </a>
 
-                    <a href="#sobre" onClick={closeMenu}>
+                    <a
+                        href="#sobre"
+                        className={getLinkClass("sobre")}
+                        onClick={closeMenu}
+                    >
                         Sobre
                     </a>
 
                     <a
                         href="#localizacao"
+                        className={getLinkClass(
+                            "localizacao"
+                        )}
                         onClick={closeMenu}
                     >
                         Localização
                     </a>
 
-                    <a href="#contato" onClick={closeMenu}>
+                    <a
+                        href="#contato"
+                        className={getLinkClass("contato")}
+                        onClick={closeMenu}
+                    >
                         Contato
                     </a>
                 </nav>

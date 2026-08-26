@@ -1,3 +1,9 @@
+import {
+    useCallback,
+    useEffect,
+    useState
+} from "react";
+
 import "./Cart.css";
 
 export default function Cart({
@@ -8,6 +14,44 @@ export default function Cart({
     onRemove,
     onCheckout
 }) {
+    const [isClosing, setIsClosing] = useState(false);
+
+    const handleClose = useCallback(() => {
+        if (isClosing) {
+            return;
+        }
+
+        setIsClosing(true);
+
+        setTimeout(() => {
+            onClose();
+        }, 250);
+    }, [isClosing, onClose]);
+
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === "Escape") {
+                handleClose();
+            }
+        }
+
+        document.addEventListener(
+            "keydown",
+            handleKeyDown
+        );
+
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.removeEventListener(
+                "keydown",
+                handleKeyDown
+            );
+
+            document.body.style.overflow = "";
+        };
+    }, [handleClose]);
+
     const totalItems = items.reduce(
         (total, item) => total + item.quantity,
         0
@@ -19,19 +63,28 @@ export default function Cart({
         0
     );
 
-    const formattedTotal = totalPrice.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    });
+    const formattedTotal = totalPrice.toLocaleString(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
 
     return (
         <div
-            className="cart-overlay"
-            onClick={onClose}
+            className={`cart-overlay ${
+                isClosing ? "closing" : ""
+            }`}
+            onClick={handleClose}
         >
             <aside
-                className="cart"
-                onClick={(event) => event.stopPropagation()}
+                className={`cart ${
+                    isClosing ? "closing" : ""
+                }`}
+                onClick={(event) =>
+                    event.stopPropagation()
+                }
             >
                 <div className="cart-header">
                     <div>
@@ -45,7 +98,7 @@ export default function Cart({
                     <button
                         className="cart-close"
                         type="button"
-                        onClick={onClose}
+                        onClick={handleClose}
                         aria-label="Fechar carrinho"
                     >
                         ×
@@ -97,11 +150,15 @@ export default function Cart({
                                             <div className="cart-item-top">
                                                 <div>
                                                     <strong>
-                                                        {item.name}
+                                                        {
+                                                            item.name
+                                                        }
                                                     </strong>
 
                                                     <span>
-                                                        {formattedPrice}
+                                                        {
+                                                            formattedPrice
+                                                        }
                                                     </span>
                                                 </div>
 
@@ -163,14 +220,20 @@ export default function Cart({
 
                         <div className="cart-footer">
                             <div className="cart-total">
-                                <span>Total do pedido</span>
-                                <strong>{formattedTotal}</strong>
+                                <span>
+                                    Total do pedido
+                                </span>
+
+                                <strong>
+                                    {formattedTotal}
+                                </strong>
                             </div>
 
                             <p>
-                                Você será direcionado ao WhatsApp
-                                para confirmar disponibilidade,
-                                entrega e pagamento.
+                                Você será direcionado ao
+                                WhatsApp para confirmar
+                                disponibilidade, entrega e
+                                pagamento.
                             </p>
 
                             <button
@@ -184,11 +247,13 @@ export default function Cart({
                     </>
                 ) : (
                     <div className="cart-empty">
-                        <h3>Seu carrinho está vazio</h3>
+                        <h3>
+                            Seu carrinho está vazio
+                        </h3>
 
                         <p>
-                            Adicione flores ou presentes para
-                            montar seu pedido.
+                            Adicione flores ou presentes
+                            para montar seu pedido.
                         </p>
                     </div>
                 )}
