@@ -27,10 +27,6 @@ A finalização do pedido é realizada pelo WhatsApp, enviando automaticamente p
 - Bootstrap
 - CSS
 
-## Status
-
-🚧 Em desenvolvimento.
-
 ## Objetivo
 
 O projeto foi desenvolvido como uma solução de catálogo digital para pequenos negócios do ramo de floricultura, permitindo que clientes conheçam os produtos antes de entrar em contato com a loja.
